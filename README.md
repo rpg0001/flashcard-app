@@ -1,4 +1,4 @@
-# Decks app
+# Flashcard app
 - To run app, run `npm i` then `npm start` in /api and in /ui.
 - API requires a .env file with the following variables:
 ```
