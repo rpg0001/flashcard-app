@@ -22,17 +22,18 @@ export default function DeckDetails() {
     return (
         <div>
             <Link to='/decks' >Back to deck list</Link>
-            <h1>View deck</h1>
             {deck ?
                 <>
-                    <div className='deck'>
-                        <h2>{deck?.name}</h2>
+                    <div className="view-deck">
+                        <h1>{deck?.name}</h1>
+                        <small>
+                            42 cards | 
+                            Created 01/01/25 | 
+                            <Link to={`edit`} >Edit</Link> | 
+                            <a href="/" onClick={doDeleteDeck}>Delete</a>
+                        </small>
                         <p>{deck?.description}</p>
-                    </div>
-                    <div className='flex flex-row gap-2'>
-                        <Link to={`edit`} >edit</Link>
-                        |
-                        <a href="/" onClick={doDeleteDeck}>delete</a>
+                        <Link to="#">Add to deck</Link>
                     </div>
                 </>
             :

@@ -14,3 +14,9 @@ body {
 h1, h2, h3, h4, button, a, input {
   all: revert;
 }
+
+small {
+  @apply
+    text-gray-500
+}
+

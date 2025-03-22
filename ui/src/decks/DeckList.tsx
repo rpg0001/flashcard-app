@@ -13,12 +13,13 @@ export default function DeckList() {
     
     return (
         <div>
-            <h1>All decks</h1>
+            <h1>My decks</h1>
             <Link to='create'>Add new deck</Link>
             <div className='deck-list'>
                 {decks.map(deck => 
                     <div className='deck'>
                         <h3>{deck.name}</h3>
+                        <small>42 cards | Created 01/01/25</small>
                         <p>{deck.description}</p>
                         <Link to={`${deck.id}`} >view deck</Link>
                     </div>

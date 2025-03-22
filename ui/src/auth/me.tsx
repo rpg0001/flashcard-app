@@ -8,11 +8,11 @@ export default function Me() {
                 <div>
                     <h1>My account</h1>
                     <p>
-                        <h2>Email</h2>
+                        <h4>Email</h4>
                         <input type="text" disabled={true} value={auth.user.email}></input>
                     </p>
                     <p>
-                        <h2>Username</h2>
+                        <h4>Username</h4>
                         <input type="text" disabled={true} value={auth.user.username}></input>
                     </p>
                 </div>

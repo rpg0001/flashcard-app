@@ -1,13 +1,28 @@
 .deck {
-    @apply 
-        bg-yellow-100 
-        p-2 
-        w-60 
-        h-60
-        drop-shadow-md
+    @apply
+        border
+        border-black
+        rounded-md
+        p-6
+        w-96
+        h-48
     ;
 }
 
 .deck-list {
-    @apply flex gap-4 flex-wrap my-4;
+    @apply 
+        flex 
+        gap-4 
+        flex-wrap  
+        my-4
+    ;
+}
+
+.view-deck {
+    @apply 
+        flex 
+        flex-col
+        gap-2
+        w-max
+    ;
 }
