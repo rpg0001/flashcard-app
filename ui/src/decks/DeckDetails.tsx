@@ -27,7 +27,7 @@ export function DeckDetails() {
     async function doDeleteCard(cardId: number) {
         try {
             await deleteCard(cardId, parseInt(id ?? ""));
-            setCards(cards?.filter(c => c.id != cardId));
+            setCards(cards?.filter(c => c.id !== cardId));
         } catch (error: any) {
             console.error("Error deleting card with id " + cardId);
         }
@@ -44,7 +44,7 @@ export function DeckDetails() {
                             {getCardCountString(deck.cardCount)} | 
                             Created {deck.createdAt.split("T")[0]} | 
                             <Link to={`edit`} >Edit</Link> | 
-                            <a href="#" onClick={doDeleteDeck}>Delete</a>
+                            <button onClick={doDeleteDeck}>Delete</button>
                         </small>
                         <p>{deck?.description}</p>
                         <Link to={`cards/create`} >Add to deck</Link>
