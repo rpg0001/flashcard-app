@@ -39,7 +39,7 @@ export default function DeckDetails() {
                             <a href="/" onClick={doDeleteDeck}>Delete</a>
                         </small>
                         <p>{deck?.description}</p>
-                        <Link to="#">Add to deck</Link>
+                        <Link to={`cards/create`} >Add to deck</Link>
                         <div className="list-v">
                             {cards?.map(card => <DeckCard card={card} ></DeckCard>)}
                         </div>
