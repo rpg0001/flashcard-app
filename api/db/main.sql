@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS notes_app;
-CREATE DATABASE notes_app;
-USE notes_app;
+DROP DATABASE IF EXISTS flashcard_app;
+CREATE DATABASE flashcard_app;
+USE flashcard_app;
 
-DROP TABLE IF EXISTS notes;
+DROP TABLE IF EXISTS decks;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_sessions;
 
@@ -14,10 +14,10 @@ CREATE TABLE users (
     user_type ENUM("BASIC", "ADMIN")
 );
 
-CREATE TABLE notes (
+CREATE TABLE decks (
     id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
-    content TEXT(1023) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `description` TEXT(1023) NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

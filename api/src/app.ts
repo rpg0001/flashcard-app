@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import NoteRouter from './routers/noteRouter';
+import DeckRouter from './routers/deckRouter';
 import UserRouter from './routers/userRouter';
 import AuthRouter from './routers/authRouter';
 import { logger } from './utils/logger';
@@ -53,7 +53,7 @@ app.get('/api', (req, res) => res.status(200).json('OK'));
 app.use("/api/auth", AuthRouter);
 
 // Protected routers
-app.use("/api/notes", requireAuth, NoteRouter);
+app.use("/api/decks", requireAuth, DeckRouter);
 app.use("/api/users", requireAuth, requireAdmin, UserRouter);
 
 // Custom error handler
