@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { deleteDeck, getDeck, Deck } from "../services/decks";
 import './decks.css';
-import { Card, listCards } from "../services/cards";
+import { Card, deleteCard, listCards } from "../services/cards";
 import DeckCard from "./DeckCard";
 import { getCardCountString } from "./helpers";
 
@@ -24,6 +24,15 @@ export default function DeckDetails() {
         await deleteDeck(parseInt(id ?? ""));
         navigate(`/decks`);
     }
+
+    async function doDeleteCard(cardId: number) {
+        try {
+            await deleteCard(cardId, parseInt(id ?? ""));
+            setCards(cards?.filter(c => c.id != cardId));
+        } catch (error: any) {
+            console.error("Error deleting card with id " + cardId);
+        }
+    }
     
     return (
         <div>
@@ -36,12 +45,14 @@ export default function DeckDetails() {
                             {getCardCountString(deck.cardCount)} | 
                             Created {deck.createdAt.split("T")[0]} | 
                             <Link to={`edit`} >Edit</Link> | 
-                            <a href="/" onClick={doDeleteDeck}>Delete</a>
+                            <a href="#" onClick={doDeleteDeck}>Delete</a>
                         </small>
                         <p>{deck?.description}</p>
                         <Link to={`cards/create`} >Add to deck</Link>
                         <div className="list-v">
-                            {cards?.map(card => <DeckCard card={card} ></DeckCard>)}
+                            {cards?.map(card => 
+                                <DeckCard card={card} doDeleteCard={doDeleteCard}></DeckCard>)
+                            }
                         </div>
                     </div>
                 </>
