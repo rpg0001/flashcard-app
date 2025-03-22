@@ -11,7 +11,8 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     username VARCHAR(23) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    user_type ENUM("BASIC", "ADMIN")
+    user_type ENUM("BASIC", "ADMIN"),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
 
 CREATE TABLE decks (
@@ -19,7 +20,8 @@ CREATE TABLE decks (
     `name` VARCHAR(255) NOT NULL,
     `description` TEXT(1023) NOT NULL,
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
 
 CREATE TABLE user_sessions (
