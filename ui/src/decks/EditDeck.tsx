@@ -33,7 +33,7 @@ export default function EditDeck() {
     
     return (
         <div>
-            <Link to={`/decks/${id}`} >Back to deck details</Link>
+            <Link to={`/decks/${id}`} >{"<"} Back to deck details</Link>
             <h1>Edit deck #{id}</h1>
             <form onSubmit={handleSubmit}>
                 <div>

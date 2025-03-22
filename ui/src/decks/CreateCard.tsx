@@ -31,7 +31,7 @@ export default function CreateCard() {
     
     return (
         <div>
-            <Link to={`/decks/${id}`} >Back to deck details</Link>
+            <Link to={`/decks/${id}`} >{"<"} Back to deck details</Link>
             <h1>Create card</h1>
             <p>Adding card to deck: <strong>{deck?.name}</strong></p>
             <form onSubmit={handleSubmit}>

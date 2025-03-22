@@ -27,7 +27,7 @@ export default function DeckDetails() {
     
     return (
         <div>
-            <Link to='/decks' >Back to deck list</Link>
+            <Link to='/decks' >{"<"} Back to deck list</Link>
             {deck ?
                 <>
                     <div className="view-deck">

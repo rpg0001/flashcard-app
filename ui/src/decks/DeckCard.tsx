@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card } from "../services/cards";
 
 export default function DeckCard(props: { card: Card }) {
@@ -8,7 +9,7 @@ export default function DeckCard(props: { card: Card }) {
                 <p>{props.card.definition}</p>
             </div>
             <div className="list-v">
-                <button>Edit</button>
+                <Link to={`cards/${props.card.id}/edit`}>Edit</Link>
                 <button>Delete</button>
             </div>
         </div>

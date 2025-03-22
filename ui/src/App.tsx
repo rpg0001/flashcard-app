@@ -12,6 +12,7 @@ import SignIn from "./auth/signIn";
 import Me from "./auth/me";
 import { ProtectedRoute } from "./components/protectedRoute";
 import CreateCard from "./decks/CreateCard";
+import EditCard from "./decks/EditCard";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
 
             {/* Decks/cards */}
             <Route path="decks/:id/cards/create" element={<ProtectedRoute> <CreateCard /> </ProtectedRoute>} />
+            <Route path="decks/:id/cards/:cardId/edit" element={<ProtectedRoute> <EditCard /> </ProtectedRoute>} />
 
             {/* Auth */}
             <Route path="auth/signup" element={<SignUp />} />
