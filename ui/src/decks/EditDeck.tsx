@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Deck, getDeck, updateDeck } from "../services/decks";
 
-export default function EditDeck() {
+export function EditDeck() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [deck, setDeck] = useState<Deck>();
@@ -33,7 +33,7 @@ export default function EditDeck() {
     
     return (
         <div>
-            <Link to={`/decks/${id}`} >Back to deck details</Link>
+            <Link to={`/decks/${id}`} >{"<"} Back to deck details</Link>
             <h1>Edit deck #{id}</h1>
             <form onSubmit={handleSubmit}>
                 <div>

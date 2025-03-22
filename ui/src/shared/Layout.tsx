@@ -1,8 +1,8 @@
 import { Outlet, Link } from "react-router-dom";
 import './Layout.css';
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks";
 
-export default function Layout() {
+export function Layout() {
     const auth = useAuth();
     
     return (

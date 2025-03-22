@@ -1,6 +1,6 @@
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks";
 
-export default function Me() {
+export function Me() {
     const auth = useAuth();
     return  (
         <div>

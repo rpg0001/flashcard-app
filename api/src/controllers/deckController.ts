@@ -15,7 +15,7 @@ export async function getDeck(req: any, res: any, next: any) {
         logger.info("getDeck: success. deckId: " + deck.id);
         res.status(200).json(deck);
     } catch (error: any) {
-        logger.info("getDeck: error with status " + error.status + ". deckId: " + id);
+        logger.error("getDeck: error with status " + error.status + ". deckId: " + id);
         next(error);
     }
 }
@@ -31,7 +31,7 @@ export async function listDecks(req: any, res: any, next: any) {
         logger.info("listDecks: success. Decks found: " + decks.length);
         return res.status(200).json(decks);
     } catch (error: any) {
-        logger.info("listDecks: error with status " + error.status + ". userId: " + userIdString);
+        logger.error("listDecks: error with status " + error.status + ". userId: " + userIdString);
         next(error);
     }
 }
@@ -51,7 +51,7 @@ export async function createDeck(req: any, res: any, next: any) {
         logger.info("createDeck: success. deckId " + deck?.id + ". userId: " + userIdString);
         return res.status(201).json(deck);
     } catch (error: any) {
-        logger.info("createDeck: error with status " + error.status + ". userId: " + userIdString);
+        logger.error("createDeck: error with status " + error.status + ". userId: " + userIdString);
         next(error);
     }
 }
@@ -76,7 +76,7 @@ export async function updateDeck(req: any, res: any, next: any) {
         logger.info("updateDeck: success. deckId " + id);
         return res.status(200).json(updatedDeck);
     } catch (error: any) {
-        logger.info("updateDeck: error with status " + error.status + ". deckId: " + id);
+        logger.error("updateDeck: error with status " + error.status + ". deckId: " + id);
         next(error);
     }
 }
@@ -95,7 +95,7 @@ export async function deleteDeck(req: any, res: any, next: any) {
         logger.info("deleteDeck: success. deckId " + id);
         return res.status(204).json();
     } catch (error: any) {
-        logger.info("deleteDeck: error with status " + error.status + ". deckId: " + id);
+        logger.error("deleteDeck: error with status " + error.status + ". deckId: " + id);
         next(error);
     }
 }

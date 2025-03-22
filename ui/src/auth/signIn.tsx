@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks";
 
-export default function SignIn() {
+export function SignIn() {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);

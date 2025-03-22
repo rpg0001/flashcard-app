@@ -1,5 +1,4 @@
-import { baseUrl } from "../utils/constants";
-import { axiosDelete, axiosGet, axiosPatch, axiosPost } from "../utils/axios";
+import { baseUrl, axiosDelete, axiosGet, axiosPatch, axiosPost } from "../utils";
 
 export interface Deck {
     id: number;
