@@ -39,10 +39,10 @@ export default function Layout() {
                         {auth.user ?
                             <>
                                 <li>
-                                    <Link to="/notes">Notes</Link>
+                                    <Link to="/decks">Decks</Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes/create">Create Note</Link>
+                                    <Link to="/decks/create">Create Deck</Link>
                                 </li>
                             </> 
                             :

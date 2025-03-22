@@ -1,4 +1,4 @@
-.note {
+.deck {
     @apply 
         bg-yellow-100 
         p-2 
@@ -8,6 +8,6 @@
     ;
 }
 
-.note-list {
+.deck-list {
     @apply flex gap-4 flex-wrap my-4;
 }

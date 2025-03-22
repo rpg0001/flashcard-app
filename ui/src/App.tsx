@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NoteList from "./notes/NoteList";
+import DeckList from "./decks/DeckList";
 import NotFound from "./errors/NotFound";
 import Home from "./home/Home";
 import Layout from "./shared/Layout";
-import NoteDetails from "./notes/NoteDetails";
-import { CreateNote } from "./notes/CreateNote";
-import EditNote from "./notes/EditNote";
+import DeckDetails from "./decks/DeckDetails";
+import { CreateDeck } from "./decks/CreateDeck";
+import EditDeck from "./decks/EditDeck";
 import { AuthProvider } from "./hooks/useAuth";
 import SignUp from "./auth/signUp";
 import SignIn from "./auth/signIn";
@@ -21,11 +21,11 @@ export default function App() {
             {/* Home */}
             <Route index element={<Home />} />
 
-            {/* Notes */}
-            <Route path="notes" element={<ProtectedRoute> <NoteList /> </ProtectedRoute>} />
-            <Route path="notes/:id" element={<ProtectedRoute> <NoteDetails /> </ProtectedRoute>} />
-            <Route path="notes/create" element={<ProtectedRoute> <CreateNote /> </ProtectedRoute>} />
-            <Route path="notes/:id/edit" element={<ProtectedRoute> <EditNote /> </ProtectedRoute>} />
+            {/* Decks */}
+            <Route path="decks" element={<ProtectedRoute> <DeckList /> </ProtectedRoute>} />
+            <Route path="decks/:id" element={<ProtectedRoute> <DeckDetails /> </ProtectedRoute>} />
+            <Route path="decks/create" element={<ProtectedRoute> <CreateDeck /> </ProtectedRoute>} />
+            <Route path="decks/:id/edit" element={<ProtectedRoute> <EditDeck /> </ProtectedRoute>} />
 
             {/* Auth */}
             <Route path="auth/signup" element={<SignUp />} />

@@ -7,7 +7,7 @@ export default function Home() {
         <div>
             <h1>Home</h1>
             {auth.user ? 
-                <Link to="/notes">Notes</Link>
+                <Link to="/decks">Decks</Link>
             :
                 <ul>
                     <li><Link to="/auth/signup">Sign up</Link></li>
