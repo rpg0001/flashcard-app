@@ -7,28 +7,61 @@ export async function getDeck(
     id: number
 ): Promise<Deck | null> {
     const result = await connection.query(`
-        SELECT * FROM decks WHERE id = ?`
+        SELECT *, 
+            (
+                SELECT COUNT(*) 
+                FROM cards 
+                WHERE cards.deck_id = decks.id
+            ) AS card_count
+        FROM decks
+        WHERE id = ?`
     , [id]);
     const rows = result[0] as any[];
     const deck = rows[0];
-    return deck ? new Deck(deck.id, deck.name, deck.description, deck.user_id, deck.created_at) : null;
+    return deck ? new Deck(
+        deck.id, 
+        deck.name, 
+        deck.description, 
+        deck.user_id, 
+        deck.created_at,
+        deck.card_count
+    ) : null;
 }
 
 export async function listDecks(userId: number | null): Promise<Deck[]>  {
     let decks;
     if (userId === null) {
         const [dbDecks] = await connection.query(`
-            SELECT * FROM decks
+            SELECT *, 
+                (
+                    SELECT COUNT(*) 
+                    FROM cards 
+                    WHERE cards.deck_id = decks.id
+                ) AS card_count
+            FROM decks
         `);
         decks = dbDecks;
     } else {
         const [dbDecks] = await connection.query(`
-            SELECT * FROM decks
+            SELECT *, 
+                (
+                    SELECT COUNT(*) 
+                    FROM cards 
+                    WHERE cards.deck_id = decks.id
+                ) AS card_count
+            FROM decks
             WHERE user_id = ?
         `, [ userId ]);
         decks = dbDecks;
     }
-    return (decks as any[]).map(deck => new Deck(deck.id, deck.name, deck.description, deck.user_id, deck.created_at))
+    return (decks as any[]).map(deck => new Deck(
+        deck.id, 
+        deck.name, 
+        deck.description, 
+        deck.user_id, 
+        deck.created_at, 
+        deck.card_count
+    ));
 }
 
 export async function createDeck(
