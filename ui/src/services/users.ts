@@ -1,5 +1,4 @@
-import { baseUrl } from "../utils/constants";
-import { axiosGet, axiosPatch, axiosDelete } from "../utils/axios";
+import { baseUrl, axiosGet, axiosPatch, axiosDelete } from "../utils";
 
 export interface User {
     id: number;

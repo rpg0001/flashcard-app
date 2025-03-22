@@ -1,20 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DeckList from "./decks/DeckList";
-import NotFound from "./errors/NotFound";
-import Home from "./home/Home";
-import Layout from "./shared/Layout";
-import DeckDetails from "./decks/DeckDetails";
-import { CreateDeck } from "./decks/CreateDeck";
-import EditDeck from "./decks/EditDeck";
-import { AuthProvider } from "./hooks/useAuth";
-import SignUp from "./auth/signUp";
-import SignIn from "./auth/signIn";
-import Me from "./auth/me";
-import { ProtectedRoute } from "./components/protectedRoute";
-import CreateCard from "./decks/CreateCard";
-import EditCard from "./decks/EditCard";
+import { ProtectedRoute } from "./components";
+import { AuthProvider } from "./hooks";
+import { CreateCard, CreateDeck, DeckDetails, DeckList, EditCard, EditDeck } from "./decks";
+import { SignUp, SignIn, Me } from "./auth";
+import { NotFound } from "./errors";
+import { Home } from "./home";
+import { Layout } from "./shared";
 
-export default function App() {
+export function App() {
   return (
     <AuthProvider>
       <BrowserRouter>

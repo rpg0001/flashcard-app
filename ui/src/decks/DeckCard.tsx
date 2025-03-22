@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Card } from "../services/cards";
+import { Card } from "../services";
 
-export default function DeckCard(props: { 
+export function DeckCard(props: { 
     card: Card,
     doDeleteCard: (cardId: number) => Promise<void>
 }) {

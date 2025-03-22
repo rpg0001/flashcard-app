@@ -1,7 +1,6 @@
-import { baseUrl } from "../utils/constants";
-import { User } from "./users";
-import { axiosGet, axiosPost } from "../utils/axios";
 import axios, { AxiosResponse } from "axios";
+import { axiosPost, baseUrl, axiosGet } from "../utils";
+import { User } from "./users";
 
 export async function signUp(
     email: string,

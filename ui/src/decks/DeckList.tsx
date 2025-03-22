@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { listDecks, Deck } from "../services/decks";
 import { getCardCountString } from './helpers';
 
-export default function DeckList() {
+export function DeckList() {
     const [decks, setDecks] = useState<Deck[]>([]);
 
     useEffect(() => {

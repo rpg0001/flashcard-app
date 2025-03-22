@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Deck, getDeck } from "../services/decks";
-import { createCard } from "../services/cards";
+import { createCard, Deck, getDeck } from "../services";
 
-export default function CreateCard() {
+export function CreateCard() {
     const navigate = useNavigate();
     const { id } = useParams();
     

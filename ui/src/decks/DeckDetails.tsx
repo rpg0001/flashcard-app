@@ -1,12 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { deleteDeck, getDeck, Deck } from "../services/decks";
 import './decks.css';
-import { Card, deleteCard, listCards } from "../services/cards";
-import DeckCard from "./DeckCard";
+import { Card, Deck, deleteCard, deleteDeck, getDeck, listCards } from "../services";
 import { getCardCountString } from "./helpers";
+import { DeckCard } from "./DeckCard";
 
-export default function DeckDetails() {
+export function DeckDetails() {
     const navigate = useNavigate();
     const { id } = useParams();
 

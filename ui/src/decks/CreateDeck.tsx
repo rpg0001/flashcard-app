@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createDeck } from "../services/decks";
+import { createDeck } from "../services";
 import './decks.css';
 
 export function CreateDeck() {

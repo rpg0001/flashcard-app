@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks";
 
-export default function Home() {
+export function Home() {
     const auth = useAuth();
     return (
         <div>

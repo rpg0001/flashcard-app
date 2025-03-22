@@ -3,7 +3,7 @@ import { Deck, getDeck } from "../services/decks";
 import { useState, useEffect } from "react";
 import { Card, getCard, updateCard } from "../services/cards";
 
-export default function EditCard() {
+export function EditCard() {
     const navigate = useNavigate();
     const { id, cardId } = useParams();
 

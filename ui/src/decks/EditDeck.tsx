@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Deck, getDeck, updateDeck } from "../services/decks";
 
-export default function EditDeck() {
+export function EditDeck() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [deck, setDeck] = useState<Deck>();
