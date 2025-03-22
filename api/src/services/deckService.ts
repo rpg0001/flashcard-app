@@ -11,7 +11,7 @@ export async function getDeck(
     , [id]);
     const rows = result[0] as any[];
     const deck = rows[0];
-    return deck ? new Deck(deck.id, deck.name, deck.description, deck.user_id) : null;
+    return deck ? new Deck(deck.id, deck.name, deck.description, deck.user_id, deck.created_at) : null;
 }
 
 export async function listDecks(userId: number | null): Promise<Deck[]>  {
@@ -28,7 +28,7 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
         `, [ userId ]);
         decks = dbDecks;
     }
-    return (decks as any[]).map(deck => new Deck(deck.id, deck.name, deck.description, deck.user_id))
+    return (decks as any[]).map(deck => new Deck(deck.id, deck.name, deck.description, deck.user_id, deck.created_at))
 }
 
 export async function createDeck(

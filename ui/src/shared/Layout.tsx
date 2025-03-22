@@ -41,9 +41,6 @@ export default function Layout() {
                                 <li>
                                     <Link to="/decks">Decks</Link>
                                 </li>
-                                <li>
-                                    <Link to="/decks/create">Create Deck</Link>
-                                </li>
                             </> 
                             :
                             null

@@ -17,7 +17,8 @@ export async function getUser(
         user.email, 
         user.username, 
         user.password_hash, 
-        user.user_type
+        user.user_type,
+        user.created_at
     ) : null;
 }
 
@@ -30,7 +31,8 @@ export async function listUsers(): Promise<User[]>  {
         user.email, 
         user.username, 
         user.password_hash, 
-        user.user_type
+        user.user_type,
+        user.created_at
     ));
 }
 
@@ -44,7 +46,8 @@ export async function searchUsers(username?: string, email?: string): Promise<Us
             user.email, 
             user.username, 
             user.password_hash, 
-            user.user_type
+            user.user_type,
+            user.created_at
         ));
     } else if (username) {
         const [users] = await connection.query(`
@@ -55,7 +58,8 @@ export async function searchUsers(username?: string, email?: string): Promise<Us
             user.email, 
             user.username, 
             user.password_hash, 
-            user.user_type
+            user.user_type,
+            user.created_at
         ));
     } else if (email) {
         const [users] = await connection.query(`
@@ -66,7 +70,8 @@ export async function searchUsers(username?: string, email?: string): Promise<Us
             user.email, 
             user.username, 
             user.password_hash, 
-            user.user_type
+            user.user_type,
+            user.created_at
         ));
     } else {
         return [];
