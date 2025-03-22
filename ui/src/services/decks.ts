@@ -6,6 +6,8 @@ export interface Deck {
     name: string;
     description: string;
     userId: number;
+    createdAt: string;
+    cardCount: number;
 }
 
 export async function getDeck(

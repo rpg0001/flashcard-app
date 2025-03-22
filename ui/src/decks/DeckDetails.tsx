@@ -27,8 +27,8 @@ export default function DeckDetails() {
                     <div className="view-deck">
                         <h1>{deck?.name}</h1>
                         <small>
-                            42 cards | 
-                            Created 01/01/25 | 
+                            {deck.cardCount} cards | 
+                            Created {deck.createdAt.split("T")[0]} | 
                             <Link to={`edit`} >Edit</Link> | 
                             <a href="/" onClick={doDeleteDeck}>Delete</a>
                         </small>

@@ -7,6 +7,7 @@ export default function Me() {
             {auth.user ? 
                 <div>
                     <h1>My account</h1>
+                    <small>Joined {auth.user.createdAt.split("T")[0]}</small>
                     <p>
                         <h4>Email</h4>
                         <input type="text" disabled={true} value={auth.user.email}></input>
