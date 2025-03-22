@@ -20,3 +20,32 @@ small {
     text-gray-500
 }
 
+.list-h {
+  @apply
+    flex
+    flex-row
+    gap-2
+}
+
+.list-v {
+  @apply
+    flex
+    flex-col
+    gap-2
+}
+
+.list-h-spread {
+  @apply
+    flex
+    flex-row
+    gap-2
+    justify-between
+}
+
+.list-v-spread {
+  @apply
+    flex
+    flex-col
+    gap-2
+    justify-between
+}

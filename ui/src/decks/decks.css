@@ -6,7 +6,6 @@
         p-6
         w-96
         h-48
-    ;
 }
 
 .deck-list {
@@ -15,7 +14,6 @@
         gap-4 
         flex-wrap  
         my-4
-    ;
 }
 
 .view-deck {
@@ -24,5 +22,16 @@
         flex-col
         gap-2
         w-max
-    ;
+}
+
+
+.deck-card {
+    @apply
+        flex
+        flex-row
+        rounded
+        border
+        border-black
+        p-2
+        gap-2
 }

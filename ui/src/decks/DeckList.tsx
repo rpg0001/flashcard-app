@@ -2,6 +2,7 @@ import './decks.css';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { listDecks, Deck } from "../services/decks";
+import { getCardCountString } from './helpers';
 
 export default function DeckList() {
     const [decks, setDecks] = useState<Deck[]>([]);
@@ -19,7 +20,7 @@ export default function DeckList() {
                 {decks.map(deck => 
                     <div className='deck'>
                         <h3>{deck.name}</h3>
-                        <small>{deck.cardCount} cards | Created {deck.createdAt.split("T")[0]}</small>
+                        <small>{getCardCountString(deck.cardCount)} | Created {deck.createdAt.split("T")[0]}</small>
                         <p>{deck.description}</p>
                         <Link to={`${deck.id}`} >view deck</Link>
                     </div>
