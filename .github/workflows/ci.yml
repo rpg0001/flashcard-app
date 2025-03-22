@@ -1,0 +1,52 @@
+name: CI
+
+on: 
+    workflow_dispatch:
+    pull_request:
+
+jobs:
+    build-api:
+        name: Build API
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [22.x] 
+        
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 22.x
+                cache: "npm"
+                cache-dependency-path: './api/package-lock.json'
+            
+            - name: Build
+              run: npm i && tsc
+              working-directory: './api'
+
+    build-ui:
+        name: Build UI
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [22.x] 
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 22.x
+                cache: "npm"
+                cache-dependency-path: './ui/package-lock.json'
+            
+            - name: Build
+              run: npm i && npm run build
+              working-directory: './ui'
+            
+

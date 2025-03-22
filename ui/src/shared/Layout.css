@@ -1,0 +1,30 @@
+.main-navbar ul {
+    @apply 
+        flex 
+        w-full 
+        bg-black 
+        p-4 
+        gap-4
+    ;
+}
+
+.main-navbar a {
+    @apply text-white font-bold no-underline;
+}
+
+.main-navbar a:hover {
+    @apply underline opacity-90;
+}
+
+main {
+    @apply mx-28 my-10;
+}
+
+.auth-navbar ul {
+    @apply 
+        flex 
+        w-full 
+        p-1 
+        gap-2
+    ;
+}

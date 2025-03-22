@@ -1,0 +1,32 @@
+DROP DATABASE IF EXISTS notes_app;
+CREATE DATABASE notes_app;
+USE notes_app;
+
+DROP TABLE IF EXISTS notes;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_sessions;
+
+CREATE TABLE users (
+    id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(23) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    user_type ENUM("BASIC", "ADMIN")
+);
+
+CREATE TABLE notes (
+    id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT(1023) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE user_sessions (
+    id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
+    token VARCHAR(255) UNIQUE,
+    user_id INT NOT NULL,
+    expires_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
