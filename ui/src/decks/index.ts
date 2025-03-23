@@ -6,3 +6,4 @@ export * from "./DeckList";
 export * from "./EditCard";
 export * from "./EditDeck";
 export * from "./helpers";
+export * from "./DeleteDeck";

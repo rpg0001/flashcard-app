@@ -19,11 +19,6 @@ export function DeckDetails() {
         fetchCards();
     }, [id]);
 
-    async function doDeleteDeck() {
-        await deleteDeck(parseInt(id ?? ""));
-        navigate(`/decks`);
-    }
-
     async function doDeleteCard(cardId: number) {
         try {
             await deleteCard(cardId, parseInt(id ?? ""));
@@ -44,7 +39,7 @@ export function DeckDetails() {
                             {getCardCountString(deck.cardCount)} | 
                             Created {deck.createdAt.split("T")[0]} | 
                             <Link to={`edit`} >Edit</Link> | 
-                            <button onClick={doDeleteDeck}>Delete</button>
+                            <Link to={`delete`}>Delete</Link>
                         </small>
                         <p>{deck?.description}</p>
                         <Link to={`cards/create`} >Add to deck</Link>
