@@ -66,9 +66,32 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
     ));
 }
 
+export async function listPublicDecks(): Promise<Deck[]>  {
+    const [decks] = await connection.query(`
+        SELECT *, 
+            (
+                SELECT COUNT(*) 
+                FROM cards 
+                WHERE cards.deck_id = decks.id
+            ) AS card_count
+        FROM decks
+        WHERE visibility = 'PUBLIC'
+    `);
+    return (decks as any[]).map(deck => new Deck(
+        deck.id, 
+        deck.name, 
+        deck.description, 
+        deck.card_count,
+        deck.visibility,
+        deck.created_at,
+        deck.user_id, 
+    ));
+}
+
 export async function createDeck(
     name: string, 
     description: string,
+    visibility: "PRIVATE" | "PUBLIC",
     userId: number
 ): Promise<Deck | null>  {
     const user = await getUser(userId);
@@ -76,9 +99,9 @@ export async function createDeck(
     if (!user) throw new NotFoundError(`Could not find user with id ${userId}`);
 
     const [newDeck] = await connection.query(`
-        INSERT INTO decks (name, description, user_id)
-        VALUES (?, ?, ?)
-    `, [ name, description, userId ]) as any;
+        INSERT INTO decks (name, description, visibility, user_id)
+        VALUES (?, ?, ?, ?)
+    `, [ name, description, visibility, userId ]) as any;
 
     return await getDeck(newDeck.insertId) ?? null;
 }

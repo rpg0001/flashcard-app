@@ -5,8 +5,9 @@ import * as CardController from "../controllers/cardController";
 const router = Router();
 
 // Deck routes
+router.get("/all", DeckController.listPublicDecks);
+router.get("", DeckController.listUserDecks);
 router.get("/:id", DeckController.getDeck);
-router.get("", DeckController.listDecks);
 router.post("", DeckController.createDeck);
 router.patch("/:id", DeckController.updateDeck);
 router.delete("/:id", DeckController.deleteDeck);
