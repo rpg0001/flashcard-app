@@ -33,6 +33,14 @@ export class User {
             createdAt: this.createdAt
         }
     }
+
+    getPublic() {
+        return {
+            id: this.id,
+            username: this.username,
+            createdAt: this.createdAt
+        }
+    }
 }
 
 export enum UserType {

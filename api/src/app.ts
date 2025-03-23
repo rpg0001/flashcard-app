@@ -49,12 +49,10 @@ export const connection = mysql.createPool({
 // Health check route
 app.get('/api', (req, res) => res.status(200).json('OK'));
 
-// Public routers
+// Routers
 app.use("/api/auth", AuthRouter);
-
-// Protected routers
 app.use("/api/decks", DeckRouter);
-app.use("/api/users", requireAuth, requireAdmin, UserRouter);
+app.use("/api/users", UserRouter);
 
 // Custom error handler
 app.use(errorHandler);
