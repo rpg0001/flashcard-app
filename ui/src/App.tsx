@@ -1,7 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./components";
 import { AuthProvider } from "./hooks";
-import { CreateCard, CreateDeck, DeckDetails, MyDeckList, DeleteDeck, EditCard, EditDeck, PublicDeckList, PublicDeckDetails } from "./decks";
+import { 
+  CreateCard, 
+  CreateDeck, 
+  DeckDetails, 
+  MyDeckList, 
+  DeleteDeck, 
+  EditCard, 
+  EditDeck, 
+  PublicDeckList, 
+  PublicDeckDetails, 
+  PlayDeck 
+} from "./decks";
 import { SignUp, SignIn, Me } from "./auth";
 import { NotFound } from "./errors";
 import { Home } from "./home";
@@ -24,6 +35,7 @@ export function App() {
             <Route path="decks/create" element={<ProtectedRoute> <CreateDeck /> </ProtectedRoute>} />
             <Route path="decks/:id/edit" element={<ProtectedRoute> <EditDeck /> </ProtectedRoute>} />
             <Route path="decks/:id/delete" element={<ProtectedRoute> <DeleteDeck /> </ProtectedRoute>} />
+            <Route path="decks/:id/play" element={<PlayDeck /> } />
 
             {/* Decks/cards */}
             <Route path="decks/:id/cards/create" element={<ProtectedRoute> <CreateCard /> </ProtectedRoute>} />

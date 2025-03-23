@@ -35,3 +35,18 @@
         p-2
         gap-2
 }
+
+.play-card {
+    @apply
+        flex
+        flex-col
+        rounded
+        border
+        border-black
+        p-2
+        gap-2
+        h-32
+        w-60
+        justify-center
+        items-center
+}
