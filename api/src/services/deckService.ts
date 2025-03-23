@@ -83,9 +83,9 @@ export async function listPublicDecks(): Promise<Deck[]>  {
                 WHERE cards.deck_id = decks.id
             ) AS card_count
         FROM decks
-        WHERE visibility = 'PUBLIC'
         INNER JOIN users
         ON users.id = decks.user_id
+        WHERE visibility = 'PUBLIC'
     `);
     return (decks as any[]).map(deck => new Deck(
         deck.id, 
