@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Deck, listPublicDecks } from "../services/decks";
 import { getCardCountString } from './helpers';
-import { useAuth } from '../hooks';
 
 export function PublicDeckList() {
     const [decks, setDecks] = useState<Deck[]>([]);

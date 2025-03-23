@@ -7,8 +7,6 @@ import { PublicDeckCard } from "./cards";
 import { useAuth } from "../hooks";
 
 export function PublicDeckDetails() {
-    const auth = useAuth();
-    
     const { id } = useParams();
 
     const [deck, setDeck] = useState<Deck>();
