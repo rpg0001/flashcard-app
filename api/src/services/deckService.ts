@@ -7,12 +7,13 @@ export async function getDeck(
     id: number
 ): Promise<Deck | null> {
     const result = await connection.query(`
-        SELECT *, 
+        SELECT decks.*, 
             (
                 SELECT COUNT(*) 
                 FROM cards 
                 WHERE cards.deck_id = decks.id
-            ) AS card_count
+            ) AS card_count,
+	        users.username
         FROM decks
         INNER JOIN users
         ON users.id = decks.user_id
@@ -36,12 +37,13 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
     let decks;
     if (userId === null) {
         const [dbDecks] = await connection.query(`
-            SELECT *, 
+            SELECT decks.*, 
                 (
                     SELECT COUNT(*) 
                     FROM cards 
                     WHERE cards.deck_id = decks.id
-                ) AS card_count
+                ) AS card_count,
+	            users.username
             FROM decks
             INNER JOIN users
             ON users.id = decks.user_id
@@ -49,12 +51,13 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
         decks = dbDecks;
     } else {
         const [dbDecks] = await connection.query(`
-            SELECT *, 
+            SELECT decks.*, 
                 (
                     SELECT COUNT(*) 
                     FROM cards 
                     WHERE cards.deck_id = decks.id
-                ) AS card_count
+                ) AS card_count,
+	            users.username
             FROM decks
             INNER JOIN users
             ON users.id = decks.user_id
@@ -76,12 +79,13 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
 
 export async function listPublicDecks(): Promise<Deck[]>  {
     const [decks] = await connection.query(`
-        SELECT *, 
+        SELECT decks.*, 
             (
                 SELECT COUNT(*) 
                 FROM cards 
                 WHERE cards.deck_id = decks.id
-            ) AS card_count
+            ) AS card_count,
+	        users.username
         FROM decks
         INNER JOIN users
         ON users.id = decks.user_id
