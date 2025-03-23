@@ -3,6 +3,7 @@ import { BadRequestError, ForbiddenError, NotFoundError } from '../utils/errors'
 import * as DeckService from '../services/deckService';
 import { logger } from '../utils/logger';
 import { AccessType } from '../utils/types';
+import { DeckVisibility } from '../models/deckModel';
 
 export async function getDeck(req: any, res: any, next: any) {
     const id = Number(req.params.id);
@@ -84,17 +85,20 @@ export async function createDeck(req: any, res: any, next: any) {
 export async function updateDeck(req: any, res: any, next: any) {
     const id = Number(req.params?.id);
     try {
-        const name = req.body?.name;
-        const description = req.body?.description;
+        const name: string | null = req.body?.name;
+        const description: string | null = req.body?.description;
+        const visibility: string | null = req.body?.visibility;
 
         if (isNaN(id)) 
             throw new BadRequestError('/id', 'id must be a number');
-        if (!name && !description) 
-            throw new BadRequestError('/body', 'missing required field: name, description');
+        if (!name && !description && !visibility) 
+            throw new BadRequestError('/body', 'missing required field: one or more of name, description, visibility');
         if (name && name.length > 255) 
             throw new BadRequestError('/body/name', 'name must be 255 characters or less');
         if (description && description.length > 1023) 
             throw new BadRequestError('/body/description', 'description must be 1023 characters or less');
+        if (visibility && !["PUBLIC", "PRIVATE"].includes(visibility))
+            throw new BadRequestError('/body/visibility', 'visibility must be either PUBLIC or PRIVATE');
 
         const deck = await DeckService.getDeck(id);
         if (!deck) 
@@ -102,7 +106,7 @@ export async function updateDeck(req: any, res: any, next: any) {
         
         deck.checkAccess(req.user?.id, AccessType.WRITE);
         
-        const updatedDeck = await DeckService.updateDeck(id, name, description);
+        const updatedDeck = await DeckService.updateDeck(id, name, description, visibility as DeckVisibility);
 
         logger.info("updateDeck: success. deckId " + id);
         return res.status(200).json(updatedDeck);

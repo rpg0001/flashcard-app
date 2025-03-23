@@ -1,5 +1,5 @@
 import { connection } from "../app";
-import { Deck } from "../models/deckModel";
+import { Deck, DeckVisibility } from "../models/deckModel";
 import { NotFoundError } from "../utils/errors";
 import { getUser } from "./userService";
 
@@ -108,21 +108,23 @@ export async function createDeck(
 
 export async function updateDeck(
     id: number, 
-    name: string, 
-    description: string
+    name: string | null, 
+    description: string | null,
+    visibility: DeckVisibility | null
 ): Promise<Deck | null>  {
     const deck = await getDeck(id);
 
     if (!deck) throw new NotFoundError(`Could not find deck with id ${id}`);
 
-    const newTitle = name ?? deck.name;
-    const newContent = description ?? deck.description;
+    const newName = name ?? deck.name;
+    const newDescription = description ?? deck.description;
+    const newVisibility = visibility ?? deck.visibility;
     
     const result = await connection.query(`
         UPDATE decks
-        SET name = ?, description = ?
+        SET name = ?, description = ?, visibility = ?
         WHERE id = ?
-    `, [newTitle, newContent, id]) as any;
+    `, [newName, newDescription, newVisibility, id]) as any;
 
     return await getDeck(id) ?? null;
 }
