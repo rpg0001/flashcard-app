@@ -49,11 +49,13 @@ export async function createDeck(
 export async function updateDeck(
     id: number,
     name: string, 
-    description: string
+    description: string,
+    visibility: DeckVisibility
 ): Promise<Deck> {
     const requestBody = {
         name: name,
-        description: description
+        description: description,
+        visibility: visibility
     }
     const response = await axiosPatch(`${baseUrl}/decks/${id}`, requestBody);
     return response.data as Deck;
