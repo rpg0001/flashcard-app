@@ -37,13 +37,13 @@ export class Deck {
             && userId !== this.userId 
             && this.visibility !== DeckVisibility.PUBLIC
         ) {
-            throw new ForbiddenError(`User with id ${userId} is not permitted to view private deck with id ${this.id}`);
+            throw new ForbiddenError(`User with id ${userId} is not permitted to view private deck with id ${this.id} owned by user with id ${this.userId}`);
         }
 
         if (accessType === AccessType.WRITE 
             && userId !== this.userId
         ) {
-            throw new ForbiddenError(`User with id ${userId} is not permitted to edit deck with id ${this.id}`);
+            throw new ForbiddenError(`User with id ${userId} is not permitted to edit deck with id ${this.id} owned by user with id ${this.userId}`);
         }
     }
 }
