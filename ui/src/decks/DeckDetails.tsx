@@ -1,12 +1,11 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './decks.css';
-import { Card, Deck, deleteCard, deleteDeck, getDeck, listCards } from "../services";
+import { Card, Deck, deleteCard, getDeck, listCards } from "../services";
 import { getCardCountString } from "./helpers";
 import { DeckCard } from "./DeckCard";
 
 export function DeckDetails() {
-    const navigate = useNavigate();
     const { id } = useParams();
 
     const [deck, setDeck] = useState<Deck>();
@@ -18,11 +17,6 @@ export function DeckDetails() {
         fetchDeck();
         fetchCards();
     }, [id]);
-
-    async function doDeleteDeck() {
-        await deleteDeck(parseInt(id ?? ""));
-        navigate(`/decks`);
-    }
 
     async function doDeleteCard(cardId: number) {
         try {
@@ -44,7 +38,7 @@ export function DeckDetails() {
                             {getCardCountString(deck.cardCount)} | 
                             Created {deck.createdAt.split("T")[0]} | 
                             <Link to={`edit`} >Edit</Link> | 
-                            <button onClick={doDeleteDeck}>Delete</button>
+                            <Link to={`delete`}>Delete</Link>
                         </small>
                         <p>{deck?.description}</p>
                         <Link to={`cards/create`} >Add to deck</Link>
