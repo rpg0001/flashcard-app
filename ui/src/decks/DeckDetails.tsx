@@ -42,6 +42,7 @@ export function DeckDetails() {
                             <PublicLink deck={deck} />
                         </small>
                         <p>{deck?.description}</p>
+                        <Link to={`play`} >Play deck {">"}</Link>
                         <Link to={`cards/create`} >Add to deck</Link>
                         <div className="list-v">
                             {cards?.map(card => 

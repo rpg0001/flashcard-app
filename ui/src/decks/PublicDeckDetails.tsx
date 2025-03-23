@@ -32,6 +32,7 @@ export function PublicDeckDetails() {
                             <EditDeckLink deck={deck} />
                         </small>
                         <p>{deck?.description}</p>
+                        <Link to={`/decks/${id}/play`} >Play deck {">"}</Link>
                         <div className="list-v">
                             {cards?.map(card => 
                                 <PublicDeckCard card={card}></PublicDeckCard>)
