@@ -4,9 +4,18 @@ export class User {
     username: string;
     passwordHash: string;
     userType: UserType;
+    
+    // Decks
     createdAt: Date;
 
-    constructor(id: number, email: string, username: string, passwordHash: string, userType: UserType, createdAt: string) {
+    constructor(
+        id: number, 
+        email: string, 
+        username: string, 
+        passwordHash: string, 
+        userType: UserType, 
+        createdAt: string
+    ) {
         this.id = id;
         this.email = email;
         this.username = username;

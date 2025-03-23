@@ -22,9 +22,10 @@ export async function getDeck(
         deck.id, 
         deck.name, 
         deck.description, 
-        deck.user_id, 
+        deck.card_count,
+        deck.visibility,
         deck.created_at,
-        deck.card_count
+        deck.user_id, 
     ) : null;
 }
 
@@ -58,9 +59,10 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
         deck.id, 
         deck.name, 
         deck.description, 
+        deck.card_count,
+        deck.visibility,
+        deck.created_at,
         deck.user_id, 
-        deck.created_at, 
-        deck.card_count
     ));
 }
 

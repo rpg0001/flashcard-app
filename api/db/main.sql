@@ -31,6 +31,7 @@ CREATE TABLE decks (
     `description` TEXT(1023) NOT NULL,
     user_id INT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    visibility ENUM("PRIVATE", "PUBLIC") NOT NULL DEFAULT "PRIVATE",
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
