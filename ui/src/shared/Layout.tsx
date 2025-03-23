@@ -39,12 +39,16 @@ export function Layout() {
                         {auth.user ?
                             <>
                                 <li>
-                                    <Link to="/decks">Decks</Link>
+                                    <Link to="/decks">My decks</Link>
                                 </li>
                             </> 
                             :
                             null
                         }
+
+                        <li>
+                            <Link to="/decks/all">All decks</Link>
+                        </li>
                     </ul>
                 </nav>
             </header>

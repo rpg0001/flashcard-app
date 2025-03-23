@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./components";
 import { AuthProvider } from "./hooks";
-import { CreateCard, CreateDeck, DeckDetails, DeckList, DeleteDeck, EditCard, EditDeck } from "./decks";
+import { CreateCard, CreateDeck, DeckDetails, MyDeckList, DeleteDeck, EditCard, EditDeck, PublicDeckList, PublicDeckDetails } from "./decks";
 import { SignUp, SignIn, Me } from "./auth";
 import { NotFound } from "./errors";
 import { Home } from "./home";
@@ -17,7 +17,9 @@ export function App() {
             <Route index element={<Home />} />
 
             {/* Decks */}
-            <Route path="decks" element={<ProtectedRoute> <DeckList /> </ProtectedRoute>} />
+            <Route path="decks/all" element={<PublicDeckList /> } />
+            <Route path="decks/:id/public" element={<PublicDeckDetails />} />
+            <Route path="decks" element={<ProtectedRoute> <MyDeckList /> </ProtectedRoute>} />
             <Route path="decks/:id" element={<ProtectedRoute> <DeckDetails /> </ProtectedRoute>} />
             <Route path="decks/create" element={<ProtectedRoute> <CreateDeck /> </ProtectedRoute>} />
             <Route path="decks/:id/edit" element={<ProtectedRoute> <EditDeck /> </ProtectedRoute>} />

@@ -22,8 +22,13 @@ export async function getDeck(
     return response.data as Deck;
 }
 
-export async function listDecks(): Promise<Deck[]> {
+export async function listUserDecks(): Promise<Deck[]> {
     const response = await axiosGet(`${baseUrl}/decks`);
+    return response.data as Deck[];
+}
+
+export async function listPublicDecks(): Promise<Deck[]> {
+    const response = await axiosGet(`${baseUrl}/decks/all`);
     return response.data as Deck[];
 }
 
