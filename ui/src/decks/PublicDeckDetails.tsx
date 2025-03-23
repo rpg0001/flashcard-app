@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import './decks.css';
 import { Card, Deck, getDeck, listCards } from "../services";
 import { getCardCountString } from "./helpers";
-import { PublicDeckCard } from "./PublicDeckCard";
+import { PublicDeckCard } from "./cards";
 import { useAuth } from "../hooks";
 
 export function PublicDeckDetails() {

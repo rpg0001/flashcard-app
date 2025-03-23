@@ -1,4 +1,4 @@
-import { Card } from "../services";
+import { Card } from "../../services";
 
 export function PublicDeckCard(props: { 
     card: Card

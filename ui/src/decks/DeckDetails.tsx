@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import './decks.css';
 import { Card, Deck, DeckVisibility, deleteCard, getDeck, listCards } from "../services";
 import { getCardCountString } from "./helpers";
-import { DeckCard } from "./DeckCard";
+import { DeckCard } from "./cards";
 
 export function DeckDetails() {
     const { id } = useParams();
