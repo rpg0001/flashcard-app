@@ -4,9 +4,15 @@ export interface Deck {
     id: number;
     name: string;
     description: string;
-    userId: number;
-    createdAt: string;
+    visibility: DeckVisibility;
     cardCount: number;
+    createdAt: string;
+    userId: number;
+}
+
+export enum DeckVisibility {
+    PUBLIC = "PUBLIC",
+    PRIVATE = "PRIVATE"
 }
 
 export async function getDeck(
@@ -24,12 +30,12 @@ export async function listDecks(): Promise<Deck[]> {
 export async function createDeck(
     name: string, 
     description: string,
-    userId: number
+    visibility: DeckVisibility
 ): Promise<Deck> {
     const requestBody = {
         name: name,
         description: description,
-        userId: userId
+        visibility: visibility
     }
     const response = await axiosPost(`${baseUrl}/decks`, requestBody);
     return response.data as Deck;
