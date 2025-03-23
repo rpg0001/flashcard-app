@@ -1,17 +1,4 @@
-declare global {
-    namespace Express {
-      interface Request {
-        user?: {
-          id: number
-          email: string
-          username: string | null
-        }
-        session?: {
-          id: number
-          token: string
-        }
-      }
-    }
-  }
-  
-export {}
+export enum AccessType {
+    READ = "READ",
+    WRITE = "WRITE"
+}

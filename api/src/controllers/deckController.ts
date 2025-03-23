@@ -2,6 +2,7 @@
 import { BadRequestError, ForbiddenError, NotFoundError } from '../utils/errors';
 import * as DeckService from '../services/deckService';
 import { logger } from '../utils/logger';
+import { AccessType } from '../utils/types';
 
 export async function getDeck(req: any, res: any, next: any) {
     const id = Number(req.params.id);
@@ -12,8 +13,8 @@ export async function getDeck(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(req.params.id);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${id}`);
-        if (deck.userId !== req.user.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match deck user id ${deck.userId}`);
+
+        deck.checkAccess(req.user.id, AccessType.READ);
         
         logger.info("getDeck: success. deckId: " + deck.id);
         res.status(200).json(deck);
@@ -98,8 +99,8 @@ export async function updateDeck(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(id);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${id}`);
-        if (deck.userId !== req.user?.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match deck user id ${deck.userId}`);
+        
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
         
         const updatedDeck = await DeckService.updateDeck(id, name, description);
 
@@ -120,8 +121,8 @@ export async function deleteDeck(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(id);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${id}`);
-        if (deck.userId !== req.user?.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match deck user id ${deck.userId}`);
+        
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
         
         await DeckService.deleteDeck(req.params.id);
 
