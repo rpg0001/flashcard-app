@@ -18,7 +18,7 @@ export async function getCard(req: any, res: any, next: any) {
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
 
-        deck.checkAccess(req.user.id, AccessType.READ);
+        deck.checkAccess(req.user?.id, AccessType.READ);
 
         const card = await CardService.getCard(cardId);
         if (!card) 
@@ -42,7 +42,7 @@ export async function listCards(req: any, res: any, next: any) {
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
         
-        deck.checkAccess(req.user.id, AccessType.READ);
+        deck.checkAccess(req.user?.id, AccessType.READ);
         
         const cards = await CardService.listCards(deck);
 
@@ -64,7 +64,7 @@ export async function createCard(req: any, res: any, next: any) {
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
         
-        deck.checkAccess(req.user.id, AccessType.WRITE);
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
 
         const term = req.body?.term;
         const definition = req.body?.definition;
@@ -97,7 +97,7 @@ export async function updateCard(req: any, res: any, next: any) {
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
         
-        deck.checkAccess(req.user.id, AccessType.WRITE);
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
 
         const term = req.body?.term;
         const definition = req.body?.definition;
@@ -133,7 +133,7 @@ export async function deleteCard(req: any, res: any, next: any) {
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
         
-        deck.checkAccess(req.user.id, AccessType.WRITE);
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
    
         await CardService.deleteCard(cardId);
 

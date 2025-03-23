@@ -14,7 +14,7 @@ export async function getDeck(req: any, res: any, next: any) {
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${id}`);
 
-        deck.checkAccess(req.user.id, AccessType.READ);
+        deck.checkAccess(req.user?.id, AccessType.READ);
         
         logger.info("getDeck: success. deckId: " + deck.id);
         res.status(200).json(deck);
