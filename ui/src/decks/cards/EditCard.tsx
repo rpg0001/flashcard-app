@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Deck, getDeck } from "../services/decks";
+import { Deck, getDeck } from "../../services/decks";
 import { useState, useEffect } from "react";
-import { Card, getCard, updateCard } from "../services/cards";
+import { Card, getCard, updateCard } from "../../services/cards";
 
 export function EditCard() {
     const navigate = useNavigate();

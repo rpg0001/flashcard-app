@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './decks.css';
-import { Card, Deck, DeckVisibility, deleteCard, getDeck, listCards } from "../services";
+import { Card, Deck, getDeck, listCards } from "../services";
 import { getCardCountString } from "./helpers";
-import { DeckCard } from "./cards";
+import { PublicDeckCard } from "./cards";
+import { useAuth } from "../hooks";
 
-export function DeckDetails() {
+export function PublicDeckDetails() {
     const { id } = useParams();
 
     const [deck, setDeck] = useState<Deck>();
@@ -17,35 +18,23 @@ export function DeckDetails() {
         fetchDeck();
         fetchCards();
     }, [id]);
-
-    async function doDeleteCard(cardId: number) {
-        try {
-            await deleteCard(cardId, parseInt(id ?? ""));
-            setCards(cards?.filter(c => c.id !== cardId));
-        } catch (error: any) {
-            console.error("Error deleting card with id " + cardId);
-        }
-    }
     
     return (
         <div>
-            <Link to='/decks' >{"<"} Back to deck list</Link>
+            <Link to='/decks/all' >{"<"} Back to public deck list</Link>
             {deck ?
                 <>
                     <div className="view-deck">
                         <h1>{deck?.name}</h1>
                         <small>
                             {getCardCountString(deck.cardCount)} | 
-                            Created {deck.createdAt.split("T")[0]} | 
-                            <Link to={`edit`} >Edit</Link> | 
-                            <Link to={`delete`}>Delete</Link>
-                            <PublicLink deck={deck} />
+                            Created {deck.createdAt.split("T")[0]}
+                            <EditDeckLink deck={deck} />
                         </small>
                         <p>{deck?.description}</p>
-                        <Link to={`cards/create`} >Add to deck</Link>
                         <div className="list-v">
                             {cards?.map(card => 
-                                <DeckCard card={card} doDeleteCard={doDeleteCard}></DeckCard>)
+                                <PublicDeckCard card={card}></PublicDeckCard>)
                             }
                         </div>
                     </div>
@@ -59,10 +48,12 @@ export function DeckDetails() {
     )
 }
 
-function PublicLink(props: { deck: Deck }) {
-    if (props.deck.visibility === DeckVisibility.PUBLIC) {
+function EditDeckLink(props: { deck: Deck}) {
+    const auth = useAuth();
+
+    if (auth.user && auth.user.id === props.deck.userId) {
         return (
-            <span>|<Link to={`public`}>View public page</Link></span>
+            <span>| <Link to={`/decks/${props.deck.id}`}>Edit deck</Link> </span>
         )
     } else {
         return <></>;

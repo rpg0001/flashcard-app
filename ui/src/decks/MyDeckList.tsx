@@ -1,14 +1,14 @@
 import './decks.css';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { listDecks, Deck } from "../services/decks";
+import { listUserDecks, Deck } from "../services/decks";
 import { getCardCountString } from './helpers';
 
-export function DeckList() {
+export function MyDeckList() {
     const [decks, setDecks] = useState<Deck[]>([]);
 
     useEffect(() => {
-        const fetchDecks = async () => setDecks(await listDecks());
+        const fetchDecks = async () => setDecks(await listUserDecks());
         fetchDecks();
     }, [])
     

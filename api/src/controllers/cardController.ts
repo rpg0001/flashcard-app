@@ -3,6 +3,7 @@ import { BadRequestError, ForbiddenError, NotFoundError } from '../utils/errors'
 import * as CardService from '../services/cardService';
 import * as DeckService from '../services/deckService';
 import { logger } from '../utils/logger';
+import { AccessType } from '../utils/types';
 
 export async function getCard(req: any, res: any, next: any) {
     const deckId = Number(req.params.deckId);
@@ -16,10 +17,9 @@ export async function getCard(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(deckId);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
-        if (deck.userId !== req.user.id) 
-            throw new ForbiddenError(
-                `User id ${req.user.id} does not match card deck user id ${deck.userId} (card id ${cardId}, deck id ${deckId})`);
-        
+
+        deck.checkAccess(req.user?.id, AccessType.READ);
+
         const card = await CardService.getCard(cardId);
         if (!card) 
             throw new NotFoundError(`Could not find card with id ${cardId}`);
@@ -41,8 +41,8 @@ export async function listCards(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(deckId);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
-        if (deck.userId !== req.user.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match card deck id ${deckId}`);
+        
+        deck.checkAccess(req.user?.id, AccessType.READ);
         
         const cards = await CardService.listCards(deck);
 
@@ -63,8 +63,8 @@ export async function createCard(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(deckId);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
-        if (deck.userId !== req.user.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match card deck id ${deckId}`);
+        
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
 
         const term = req.body?.term;
         const definition = req.body?.definition;
@@ -96,8 +96,8 @@ export async function updateCard(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(deckId);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
-        if (deck.userId !== req.user.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match card deck id ${deckId}`);
+        
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
 
         const term = req.body?.term;
         const definition = req.body?.definition;
@@ -132,8 +132,8 @@ export async function deleteCard(req: any, res: any, next: any) {
         const deck = await DeckService.getDeck(deckId);
         if (!deck) 
             throw new NotFoundError(`Could not find deck with id ${deckId}`);
-        if (deck.userId !== req.user.id) 
-            throw new ForbiddenError(`User id ${req.user.id} does not match card deck id ${deckId}`);
+        
+        deck.checkAccess(req.user?.id, AccessType.WRITE);
    
         await CardService.deleteCard(cardId);
 

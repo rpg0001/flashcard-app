@@ -4,9 +4,15 @@ export interface Deck {
     id: number;
     name: string;
     description: string;
-    userId: number;
-    createdAt: string;
+    visibility: DeckVisibility;
     cardCount: number;
+    createdAt: string;
+    userId: number;
+}
+
+export enum DeckVisibility {
+    PUBLIC = "PUBLIC",
+    PRIVATE = "PRIVATE"
 }
 
 export async function getDeck(
@@ -16,20 +22,25 @@ export async function getDeck(
     return response.data as Deck;
 }
 
-export async function listDecks(): Promise<Deck[]> {
+export async function listUserDecks(): Promise<Deck[]> {
     const response = await axiosGet(`${baseUrl}/decks`);
+    return response.data as Deck[];
+}
+
+export async function listPublicDecks(): Promise<Deck[]> {
+    const response = await axiosGet(`${baseUrl}/decks/all`);
     return response.data as Deck[];
 }
 
 export async function createDeck(
     name: string, 
     description: string,
-    userId: number
+    visibility: DeckVisibility
 ): Promise<Deck> {
     const requestBody = {
         name: name,
         description: description,
-        userId: userId
+        visibility: visibility
     }
     const response = await axiosPost(`${baseUrl}/decks`, requestBody);
     return response.data as Deck;
@@ -38,11 +49,13 @@ export async function createDeck(
 export async function updateDeck(
     id: number,
     name: string, 
-    description: string
+    description: string,
+    visibility: DeckVisibility
 ): Promise<Deck> {
     const requestBody = {
         name: name,
-        description: description
+        description: description,
+        visibility: visibility
     }
     const response = await axiosPatch(`${baseUrl}/decks/${id}`, requestBody);
     return response.data as Deck;

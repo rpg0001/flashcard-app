@@ -16,7 +16,14 @@ export async function getCard(
     const deck = await getDeck(card.deck_id);
     if (!deck) throw new InternalServerError(`Unexpectedly failed to find deck with id ${card.deck_id} for card with id ${id}`);
     
-    return card ? new Card(card.id, card.term, card.definition, card.deck_id, card.created_at, deck.userId) : null;
+    return card ? new Card(
+        card.id, 
+        card.term, 
+        card.definition, 
+        card.created_at, 
+        card.deck_id, 
+        deck.userId
+    ) : null;
 }
 
 export async function listCards(deck: Deck): Promise<Card[]>  {
@@ -27,7 +34,14 @@ export async function listCards(deck: Deck): Promise<Card[]>  {
     `, [ deck.id ]);
     cards = dbCards;
     
-    return (cards as any[]).map(card => new Card(card.id, card.term, card.definition, card.deck_id, card.created_at, deck.userId))
+    return (cards as any[]).map(card => new Card(
+        card.id, 
+        card.term, 
+        card.definition, 
+        card.created_at, 
+        card.deck_id, 
+        deck.userId
+    ));
 }
 
 export async function createCard(

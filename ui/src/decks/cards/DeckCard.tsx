@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card } from "../services";
+import { Card } from "../../services";
 
 export function DeckCard(props: { 
     card: Card,

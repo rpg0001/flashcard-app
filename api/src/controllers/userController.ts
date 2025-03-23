@@ -57,7 +57,7 @@ export async function deleteUser(req: any, res: any, next: any) {
     const id = Number(req.params.id);
     try {
         if (isNaN(id)) throw new BadRequestError('/id', 'id must be a number');
-        if (id == req.user.id) throw new ForbiddenError('Cannot delete currently authenticated user');
+        if (id == req.user?.id) throw new ForbiddenError('Cannot delete currently authenticated user');
 
         await UserService.deleteUser(req.params.id);
         

@@ -53,7 +53,7 @@ app.get('/api', (req, res) => res.status(200).json('OK'));
 app.use("/api/auth", AuthRouter);
 
 // Protected routers
-app.use("/api/decks", requireAuth, DeckRouter);
+app.use("/api/decks", DeckRouter);
 app.use("/api/users", requireAuth, requireAdmin, UserRouter);
 
 // Custom error handler

@@ -2,13 +2,22 @@ export class Card {
     id: number;
     term: string;
     definition: string;
-    deckId: number;
+
+    // Dates
     createdAt: Date;
 
-    // Not in schema
-    userId: number;
+    // Relations
+    deckId: number;
+    userId: number; // Not in schema
 
-    constructor(id: number, term: string, definition: string, deckId: number, createdAt: string, userId: number) {
+    constructor(
+        id: number, 
+        term: string, 
+        definition: string, 
+        createdAt: string, 
+        deckId: number, 
+        userId: number
+    ) {
         this.id = id;
         this.term = term;
         this.definition = definition;

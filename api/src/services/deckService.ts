@@ -1,5 +1,5 @@
 import { connection } from "../app";
-import { Deck } from "../models/deckModel";
+import { Deck, DeckVisibility } from "../models/deckModel";
 import { NotFoundError } from "../utils/errors";
 import { getUser } from "./userService";
 
@@ -22,9 +22,10 @@ export async function getDeck(
         deck.id, 
         deck.name, 
         deck.description, 
-        deck.user_id, 
+        deck.card_count,
+        deck.visibility,
         deck.created_at,
-        deck.card_count
+        deck.user_id, 
     ) : null;
 }
 
@@ -58,15 +59,39 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
         deck.id, 
         deck.name, 
         deck.description, 
+        deck.card_count,
+        deck.visibility,
+        deck.created_at,
         deck.user_id, 
-        deck.created_at, 
-        deck.card_count
+    ));
+}
+
+export async function listPublicDecks(): Promise<Deck[]>  {
+    const [decks] = await connection.query(`
+        SELECT *, 
+            (
+                SELECT COUNT(*) 
+                FROM cards 
+                WHERE cards.deck_id = decks.id
+            ) AS card_count
+        FROM decks
+        WHERE visibility = 'PUBLIC'
+    `);
+    return (decks as any[]).map(deck => new Deck(
+        deck.id, 
+        deck.name, 
+        deck.description, 
+        deck.card_count,
+        deck.visibility,
+        deck.created_at,
+        deck.user_id, 
     ));
 }
 
 export async function createDeck(
     name: string, 
     description: string,
+    visibility: "PRIVATE" | "PUBLIC",
     userId: number
 ): Promise<Deck | null>  {
     const user = await getUser(userId);
@@ -74,30 +99,32 @@ export async function createDeck(
     if (!user) throw new NotFoundError(`Could not find user with id ${userId}`);
 
     const [newDeck] = await connection.query(`
-        INSERT INTO decks (name, description, user_id)
-        VALUES (?, ?, ?)
-    `, [ name, description, userId ]) as any;
+        INSERT INTO decks (name, description, visibility, user_id)
+        VALUES (?, ?, ?, ?)
+    `, [ name, description, visibility, userId ]) as any;
 
     return await getDeck(newDeck.insertId) ?? null;
 }
 
 export async function updateDeck(
     id: number, 
-    name: string, 
-    description: string
+    name: string | null, 
+    description: string | null,
+    visibility: DeckVisibility | null
 ): Promise<Deck | null>  {
     const deck = await getDeck(id);
 
     if (!deck) throw new NotFoundError(`Could not find deck with id ${id}`);
 
-    const newTitle = name ?? deck.name;
-    const newContent = description ?? deck.description;
+    const newName = name ?? deck.name;
+    const newDescription = description ?? deck.description;
+    const newVisibility = visibility ?? deck.visibility;
     
     const result = await connection.query(`
         UPDATE decks
-        SET name = ?, description = ?
+        SET name = ?, description = ?, visibility = ?
         WHERE id = ?
-    `, [newTitle, newContent, id]) as any;
+    `, [newName, newDescription, newVisibility, id]) as any;
 
     return await getDeck(id) ?? null;
 }
