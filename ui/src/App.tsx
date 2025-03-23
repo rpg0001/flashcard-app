@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ProtectedRoute } from "./components";
 import { AuthProvider } from "./hooks";
 import { 
   CreateCard, 
@@ -17,6 +16,8 @@ import { SignUp, SignIn, Me } from "./auth";
 import { NotFound } from "./errors";
 import { Home } from "./home";
 import { Layout } from "./shared";
+import { User } from "./users";
+import { ProtectedRoute } from "./components";
 
 export function App() {
   return (
@@ -40,6 +41,9 @@ export function App() {
             {/* Decks/cards */}
             <Route path="decks/:id/cards/create" element={<ProtectedRoute> <CreateCard /> </ProtectedRoute>} />
             <Route path="decks/:id/cards/:cardId/edit" element={<ProtectedRoute> <EditCard /> </ProtectedRoute>} />
+
+            {/* Users */}
+            <Route path="users/:id" element={<User />} />
 
             {/* Auth */}
             <Route path="auth/signup" element={<SignUp />} />

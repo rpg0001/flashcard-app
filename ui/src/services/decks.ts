@@ -8,6 +8,7 @@ export interface Deck {
     cardCount: number;
     createdAt: string;
     userId: number;
+    username: string;
 }
 
 export enum DeckVisibility {

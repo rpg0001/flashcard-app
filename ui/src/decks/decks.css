@@ -1,11 +1,13 @@
 .deck {
     @apply
+    flex
+    flex-col
         border
         border-black
         rounded-md
         p-6
         w-96
-        h-48
+        h-56
 }
 
 .deck-list {

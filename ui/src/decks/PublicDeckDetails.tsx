@@ -5,6 +5,7 @@ import { Card, Deck, getDeck, listCards } from "../services";
 import { getCardCountString } from "./helpers";
 import { PublicDeckCard } from "./cards";
 import { useAuth } from "../hooks";
+import { UsernameLink } from "./components/UsernameLink";
 
 export function PublicDeckDetails() {
     const { id } = useParams();
@@ -26,11 +27,14 @@ export function PublicDeckDetails() {
                 <>
                     <div className="view-deck">
                         <h1>{deck?.name}</h1>
-                        <small>
-                            {getCardCountString(deck.cardCount)} | 
-                            Created {deck.createdAt.split("T")[0]}
-                            <EditDeckLink deck={deck} />
-                        </small>
+                        <p><UsernameLink deck={deck} /></p>
+                        <p>
+                            <small>
+                                {getCardCountString(deck.cardCount)} | 
+                                Created {deck.createdAt.split("T")[0]}
+                                <EditDeckLink deck={deck} />
+                            </small>
+                        </p>
                         <p>{deck?.description}</p>
                         <Link to={`/decks/${id}/play`} >Play deck {">"}</Link>
                         <div className="list-v">
