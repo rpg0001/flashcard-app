@@ -7,4 +7,6 @@ SELECT *,
 		WHERE cards.deck_id = decks.id
     ) AS card_count
 FROM decks
-WHERE id = 1;
+INNER JOIN users
+ON users.id = decks.user_id
+;

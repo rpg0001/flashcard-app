@@ -1,5 +1,5 @@
 
-import { BadRequestError, ForbiddenError, NotFoundError } from '../utils/errors';
+import { BadRequestError, NotFoundError } from '../utils/errors';
 import * as DeckService from '../services/deckService';
 import { logger } from '../utils/logger';
 import { AccessType } from '../utils/types';

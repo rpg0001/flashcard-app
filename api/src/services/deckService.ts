@@ -14,8 +14,10 @@ export async function getDeck(
                 WHERE cards.deck_id = decks.id
             ) AS card_count
         FROM decks
-        WHERE id = ?`
-    , [id]);
+        INNER JOIN users
+        ON users.id = decks.user_id
+        WHERE decks.id = ?
+    `, [id]);
     const rows = result[0] as any[];
     const deck = rows[0];
     return deck ? new Deck(
@@ -26,6 +28,7 @@ export async function getDeck(
         deck.visibility,
         deck.created_at,
         deck.user_id, 
+        deck.username
     ) : null;
 }
 
@@ -40,6 +43,8 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
                     WHERE cards.deck_id = decks.id
                 ) AS card_count
             FROM decks
+            INNER JOIN users
+            ON users.id = decks.user_id
         `);
         decks = dbDecks;
     } else {
@@ -51,6 +56,8 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
                     WHERE cards.deck_id = decks.id
                 ) AS card_count
             FROM decks
+            INNER JOIN users
+            ON users.id = decks.user_id
             WHERE user_id = ?
         `, [ userId ]);
         decks = dbDecks;
@@ -63,6 +70,7 @@ export async function listDecks(userId: number | null): Promise<Deck[]>  {
         deck.visibility,
         deck.created_at,
         deck.user_id, 
+        deck.username
     ));
 }
 
@@ -76,6 +84,8 @@ export async function listPublicDecks(): Promise<Deck[]>  {
             ) AS card_count
         FROM decks
         WHERE visibility = 'PUBLIC'
+        INNER JOIN users
+        ON users.id = decks.user_id
     `);
     return (decks as any[]).map(deck => new Deck(
         deck.id, 
@@ -85,6 +95,7 @@ export async function listPublicDecks(): Promise<Deck[]>  {
         deck.visibility,
         deck.created_at,
         deck.user_id, 
+        deck.username
     ));
 }
 
